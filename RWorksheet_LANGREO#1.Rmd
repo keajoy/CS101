@@ -1,0 +1,105 @@
+#1.a
+first11_letters <- LETTERS[1:11]
+first11_letters
+#1.b
+odd_numberedletters <- LETTERS[seq(1, length(LETTERS), by = 2)]
+odd_numberedletters
+#1.c
+vowels <- c("A", "E", "I", "O", "U")
+vowel_letters <- LETTERS[LETTERS %in% vowels]
+vowel_letters
+#1.d
+last5l_letters <- letters[22:26]
+last5l_letters
+#1.e
+letters_15_to_24 <- letters[15:24]
+letters_15_to_24
+#2.a
+city <- c("Tuguegarao City", "Manila", "Iloilo City", "Tacloban", "Samal Island", "Davao City")
+city
+#2.b
+temp <- c(42, 39, 34, 34, 30, 27)
+temp
+#2.c
+city_temperature_df <- data.frame(city, temperatures)
+city_temperature_df
+#2.d
+names(city_temperature_df) <- c("City", "Temperature")
+city_temperature_df
+#2.e
+str(city_temperature_df)
+#2.f
+city_temperature_df[3:4,]
+#2.g
+highest_temp_city <- city_temperature_df[which.max(temperature_df$Temperature), ]
+lowest_temp_city <- city_temperature_df[which.min(temperature_df$Temperature), ]
+highest_temp_city
+lowest_temp_city
+
+#Using Matrices
+
+matrix(c(5, 6, 7, 4, 3, 2, 1, 2, 3, 7, 8, 9), nrow = 2)
+
+#1
+matrix(data = c(3, 4, 5, 6, 7, 8), 3, 2)
+diag(1, nrow = 6, ncol = 5)
+diag(6)
+#2.a
+values <- c(1:8, 11:14)
+matrix_4X3 <- matrix(values, nrow = 3, ncol = 4)
+matrix_4X3
+#2.b
+matrix_multiplied <- matrix_4X3 * 2
+matrix_multiplied
+#2.c
+row2 <- matrix_4X3[2, ]
+row2
+#2.d
+d_result <- matrix_4X3[1:2, 3:4]
+d_result
+#2.e
+e_result <- matrix_4X3[3, 2:3]
+e_result
+#2.f
+f_result <- matrix_4X3[, 4]
+f_result
+#2.g
+rownames(matrix_multiplied) <- c("isa", "dalawa", "tatlo")
+colnames(matrix_multiplied) <- c("uno", "dos", "tres", "quatro")
+matrix_multiplied
+#2.h
+dim(matrix_4X3) <- c(6, 2)
+matrix_4X3
+
+
+
+#Using arrays
+#1.
+array_data <- array(c(1:24), c(3, 4, 2))
+array_data
+
+dim(array_data)
+
+length(array_data)
+
+#2
+vectorA <- c(1:24)
+
+an_Array <- array(vectorA, dim = c(3, 4, 2))
+an_Array
+
+#3.a
+values <- rep(c(1, 2, 3, 6, 7, 8, 9, 0, 3, 4, 5, 1), times = 2)
+
+array_data <- array(values, dim = c(2, 4, 3))
+array_data
+
+#3.b
+dim(array_data)
+
+#3.c
+dimnames(array_data) <- list(c("a", "b" ), c("A", "B", "C", "D"), c("1st-Dimensional Array", "2nd-Dimensional Array", "3rd-Dimensional Array"))
+
+array_data
+
+
