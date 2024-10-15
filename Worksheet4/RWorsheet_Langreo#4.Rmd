@@ -1,0 +1,68 @@
+---
+title: "RWorksheet_Langreo#4a"
+author: "Kea Joy L. Langreo"
+date: "2024-10-14"
+output: pdf_document
+---
+```{r}
+
+shoe_size1 <- c(6.5, 9.0, 8.5, 8.5, 10.5, 7.0, 9.5, 9.0, 13.0, 7.5, 10.5, 8.5, 12.0, 10.5)
+height1 <- c(66.0, 68.0, 64.5, 65.0, 70.0, 64.0, 70.0, 71.0, 72.0, 64.0, 74.0, 67.0, 71.0, 71.0)
+gender1 <- c("F", "F", "F", "F", "M", "F", "F", "F", "M", "F", "M", "F", "M", "M")
+shoe_size2 <- c(13.0, 11.5, 8.5, 5.0, 10.0, 6.5, 7.5, 8.5, 10.5, 8.5, 10.5, 11.0, 9.0, 13.0)
+height2 <- c(77.0, 72.0, 59.0, 62.0, 72.0, 66.0, 64.0, 67.0, 73.0, 69.0, 72.0, 70.0, 69.0, 70.0)
+gender2 <- c("M", "M", "F", "F", "M", "F", "F", "M", "M", "F", "M", "M", "M", "M")
+df <- data.frame(ShoeSize = c(shoe_size1,shoe_size2), height = c(height1, height2), gender = c(gender1, gender2))
+df
+
+
+
+#1a.
+#The data is consists of the different shoe size with corresponding height and gender of the user.
+
+#1b.
+male_subset <- shoe_data1[shoe_data1$Gender == "M",]
+female <- shoe_data1[shoe_data1$Gender == "F",]
+print("Male_subset")
+print(male_subset)
+print("Female_subset")
+female
+
+#1c.
+shoe_size <- c(6.5, 9.0, 8.5, 8.5, 10.5, 7.0, 9.5, 9.0, 13.0, 7.5, 10.5, 8.5, 12.0, 10.5)
+height <- c(66.0, 68.0, 64.5, 65.0, 70.0, 64.0, 70.0, 71.0, 72.0, 64.0, 74.0, 67.0, 71.0, 71.0)
+mean_ShoeSize <- mean(shoe_size)
+mean_height <- mean(height)
+mean_ShoeSize
+mean_height
+
+#1d.
+correlation <- cor(df$ShoeSize, df$height, use = "complete.obs")
+print(paste("Correlation between shoe size and height:", correlation))
+
+#2
+monthsvec <- c("March", "April", "Januay", "November", "January", "September", "October", "September", "November", "August", "January", "November", "February", "May", "August", "july", "December", "August", "August", "September", "November", "February", "April")
+factor_monthsvec <- factor(monthsvec)
+
+factor_monthsvec
+
+levels(factor_monthsvec)
+
+#3.
+summary(monthsvec)
+
+summary(factor_monthsvec)
+
+#4
+direction <- c("East", "West", "North")
+frequency <- c(1,4,3)
+factor_data <- factor(direction, levels = c("East", "West", "North"))
+factor_data
+new_order_data <- factor(factor_data, levels = c("East", "West", "North"))
+
+#5
+write.csv("import_march.csv", row.names = FALSE)
+data <- read.table("import_march.csv", header = TRUE, sep = ",")
+data
+```
+
