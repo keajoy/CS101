@@ -1,0 +1,242 @@
+---
+title: "RWorksheet_Langreo#4b"
+author: "Kea Joy Langreo"
+date: "2024-10-29"
+output: pdf_document
+---
+
+```{r}
+#1
+vectorA <- c(1, 2, 3, 4, 5)
+matrixA <- matrix(0, nrow = 5, ncol = 5)
+for (i in 1:5) {
+  for (j in 1:5) {
+        matrixA[i, j] <- abs(vectorA[j] - i)
+  }
+}
+matrixA
+
+```
+
+```{r}
+#2
+matrix_size <- 5
+matrix <- matrix(0, nrow = matrix_size, ncol = matrix_size)
+
+for (i in 1:matrix_size) {
+  for (j in 1:matrix_size) {
+    matrix[i, j] <- abs(i - j)
+  }
+}
+
+cat("Transformed Matrix:\n")
+print(matrix)
+cat("\n")
+
+rows <- 5
+cat("Star Pattern:\n")
+
+for (i in 1:rows) {
+  cat(rep("*", i), sep = " ", "\n")
+}
+
+```
+
+```{r}
+first <- as.integer(readline(prompt = "Enter the first number: "))
+if (is.na(first)) {
+cat("Please enter a valid integer.\n")
+} else {
+cat(first, "", sep = "")
+fibonacci <- c(first)
+repeat {
+if (length(fibonacci) < 2) {
+next_num <- first
+} else {
+next_num <- sum(tail(fibonacci, 2))
+}
+if (next_num > 500) {
+break
+}
+cat(" ", next_num, sep = "")
+fibonacci <- c(fibonacci, next_num)
+}
+}
+```
+
+
+```{r}
+#4a.
+library(readr)
+household <- read_csv("sample_data.csv")
+household <- read.csv("sample_data.csv")
+head(household)
+
+#4b
+male_data <- subset(household, Gender == "M")
+female_data <- subset(household, Gender == "F")
+
+male_count <- nrow(male_data)
+female_count <- nrow(female_data)
+
+cat("Number of observations in Male:", male_count, "\n")
+cat("Number of observations in Femalele:", female_count, "\n")
+
+#4c
+gender_counts <- c(male_count, female_count)
+names(gender_counts) <- c("M", "F")
+
+barplot(gender_counts, main = "Number of Males and Females in Household Data", xlab = "Gender", ylab = "Count", col = c("blue", "red"))
+```
+
+```{r}
+#5
+expenses <- c(Food = 60, Electricity = 10, Savings = 5, Miscellaneous = 25)
+expense_labels <- names(expenses)
+
+percent_labels <- paste0(expense_labels, " (", round(expenses / sum(expenses) * 100), "%)")
+
+colors <- c("blue", "violet", "red", "pink")
+
+pie(expenses,
+    labels = percent_labels,
+    main = "Monthly Expenses of the Dela Cruz Family",
+    col = colors)
+
+```
+
+
+```{r}
+#6a.
+data(iris)
+
+str(iris)
+
+#6b.
+means <- colMeans(iris[, 1:4])
+means
+
+#6c.
+species_counts <- table(iris$Species)
+
+colors <- c("lightgrey", "lightblue", "lightpink")
+
+pie(species_counts, main ="Species Distribution in Iris Dataset", col = colors, labels = paste(names(species_counts),"(", round(species_counts / sum(species_counts) *100), "%), sep = "))
+
+legend("topright", legend = names(species_counts), fill = colors)
+
+#6.d
+setosa <- subset(iris, Species == "setosa")
+versicolor <- subset(iris, Species == "versicolor")
+virginica <- subset(iris, Species == "virginica")
+cat("Last six rows of Setosa:\n")
+
+tail(setosa)
+
+cat("\nLast six rows of Versicolor:\n")
+tail(versicolor)
+cat("\nLast six rows of Virginica:\n")
+tail(virginica)
+
+iris$Species <- as.factor(iris$Species)
+plot(iris$Sepal.Length, iris$Sepal.Width,
+main = "Iris Dataset",
+sub = "Sepal Width and Length",
+xlab = "Sepal Length",
+ylab = "Sepal Width",
+col = c("green", "cyan", "magenta")[iris$Species],
+pch = c(16, 17, 18)[iris$Species])
+
+legend("topright", legend = levels(iris$Species),
+col = c("green", "cyan", "magenta"), pch = c(16, 17, 18))
+
+#6f.
+
+```
+```{r}
+#7.a
+library(readxl)  
+library(dplyr)  
+
+alexa_data <- read_excel("alexa_file.xlsx")  
+
+print(head(alexa_data))
+print(colnames(alexa_data))
+
+if ("Variant" %in% colnames(alexa_data)) { 
+    alexa_data$Variant <- gsub("^\\s+|\\s+$", "", alexa_data$Variant)  
+    alexa_data$Variant <- gsub("Black Dot", "BlackDot", alexa_data$Variant)
+    alexa_data$Variant <- gsub("Black Plus", "BlackPlus", alexa_data$Variant)
+    alexa_data$Variant <- gsub("Black Show", "BlackShow", alexa_data$Variant)
+    alexa_data$Variant <- gsub("Black Spot", "BlackSpot", alexa_data$Variant)
+    alexa_data$Variant <- gsub("White Dot", "WhiteDot", alexa_data$Variant)
+    alexa_data$Variant <- gsub("White Plus", "WhitePlus", alexa_data$Variant)
+    alexa_data$Variant <- gsub("White Show", "WhiteShow", alexa_data$Variant)
+    alexa_data$Variant <- gsub("White Spot", "WhiteSpot", alexa_data$Variant)
+
+    print(head(alexa_data))
+} else {
+    stop("The specified column 'Variant' does not exist in the dataframe.")
+}
+
+```
+```{r}
+#7.b
+if ("Variant" %in% colnames(alexa_data)) {
+alexa_data$Variant <- gsub("^\\s+|\\s+$", "", alexa_data$Variant)
+variations_count <- alexa_data %>%
+count(Variant)
+print(variations_count)
+
+save(variations_count, file = "variations.RData")
+} else {
+stop("The specified column 'variant' does not exist in the dataframe.")
+}
+```
+```{r}
+#7.c
+library(ggplot2)
+
+load("variations.RData")
+
+ggplot(variations_count, aes(x = Variant, y = n, fill = Variant)) +
+geom_bar(stat = "identity") +
+labs(title = "Count of Variations",
+x = "Variants",
+y = "Count") +
+theme_minimal() +
+theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+scale_fill_brewer(palette = "Set3")
+
+```
+
+```{r}
+#7.d
+library(gapminder) 
+library(dplyr)     
+library(ggplot2)   
+
+
+load("variations.RData") 
+
+black_Variations <- variations_count %>%
+    filter(grepl("Black", Variant)) %>%
+    summarise(n = sum(n)) %>%
+    mutate(color = "Black")  
+
+white_Variations <- variations_count %>%
+    filter(grepl("White", Variant)) %>%
+    summarise(n = sum(n)) %>%
+    mutate(color = "White") 
+
+combined_variations <- rbind(black_Variations, white_Variations)
+
+ggplot(combined_variations, aes(x = color, y = n, fill = color)) +
+    geom_bar(stat = "identity", position = "dodge") +  
+    labs(title = "Count of Black and White Variations", 
+         x = "Variants", 
+         y = "Count") +
+    theme_minimal() + 
+    scale_fill_manual(values = c("Black" = "black", "White" = "white")) + 
+    theme(axis.text.x = element_text(angle = 0, hjust = 0.5))
+```
